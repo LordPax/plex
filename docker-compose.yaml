@@ -9,30 +9,11 @@ services:
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM:? [Plex] need a claim token}
     volumes:
-      - ${DATA_PATH:? need data path}/container/plex/library:/config
+      - ${CONTAINER_PATH:? need container path}/plex/library:/config
       - ${DATA_PATH:? need data path}/tvseries:/tv
       - ${DATA_PATH:? need data path}/movies:/movies
-    # networks:
-    #   - plex-network
     depends_on:
       - transmission-openvpn
-      - kometa
-    restart: unless-stopped
-
-  kometa:
-    image: lscr.io/linuxserver/kometa:latest
-    container_name: kometa
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE:-Europe/Paris}
-      - KOMETA_CONFIG=/config/config.yml #optional
-      - KOMETA_TIME=03:00 #optional
-      - KOMETA_RUN=False #optional
-      - KOMETA_TEST=False #optional
-      - KOMETA_NO_MISSING=False #optional
-    volumes:
-      - ${DATA_PATH:? need data path}/container/kometa/config:/config
     restart: unless-stopped
 
   sonarr:
@@ -43,14 +24,12 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
-      - ${DATA_PATH:? need data path}/container/sonarr/data:/config
+      - ${CONTAINER_PATH:? need container path}/sonarr/data:/config
       - ${DATA_PATH:? need data path}/tvseries:/tv #optional
       - ${DATA_PATH:? need data path}/downloads:/downloads #optional
     ports:
       - 8989:8989
     restart: unless-stopped
-    # networks:
-    #   - plex-network
     depends_on:
       - prowlarr
       - transmission-openvpn
@@ -63,14 +42,12 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
-      - ${DATA_PATH:? need data path}/container/radarr/data:/config
+      - ${CONTAINER_PATH:? need container path}/radarr/data:/config
       - ${DATA_PATH:? need data path}/movies:/movies #optional
       - ${DATA_PATH:? need data path}/downloads:/downloads #optional
     ports:
       - 7878:7878
     restart: unless-stopped
-    # networks:
-    #   - plex-network
     depends_on:
       - prowlarr
       - transmission-openvpn
@@ -83,14 +60,12 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
-      - ${DATA_PATH:? need data path}/container/bazarr/config:/config
+      - ${CONTAINER_PATH:? need container path}/bazarr/config:/config
       - ${DATA_PATH:? need data path}/movies:/movies #optional
       - ${DATA_PATH:? need data path}/tvseries:/tv #optional
     ports:
       - 6767:6767
     restart: unless-stopped
-    # networks:
-    #   - plex-network
     depends_on:
       - radarr
       - sonarr
@@ -103,12 +78,10 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
-      - ${DATA_PATH:? need data path}/container/prowlarr/data:/config
+      - ${CONTAINER_PATH:? need container path}/prowlarr/data:/config
     ports:
       - 9696:9696
     restart: unless-stopped
-    # networks:
-    #   - plex-network
 
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
@@ -118,12 +91,10 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
-      - ${DATA_PATH:? need data path}/container/overseerr/config:/config
+      - ${CONTAINER_PATH:? need container path}/overseerr/config:/config
     ports:
       - 5055:5055
     restart: unless-stopped
-    # networks:
-    #   - plex-network
     depends_on:
       - plex
 
@@ -132,9 +103,11 @@ services:
     container_name: transmission-openvpn
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun
     volumes:
+      - ${CONTAINER_PATH:? need container path}/transmission/config/:/config
       - ${DATA_PATH:? need data path}/downloads/:/data
-      - ${DATA_PATH:? need data path}/container/deluge/config/:/config
     environment:
       - OPENVPN_PROVIDER=${OPENVPN_PROVIDER:? [Deluge] need a provider}
       - OPENVPN_CONFIG=${OPENVPN_CONFIG:? [Deluge] need a config file}
@@ -148,32 +121,3 @@ services:
     ports:
       - 9091:9091
     restart: unless-stopped
-    # networks:
-    #   - plex-network
-
-  mysql:
-    image: mysql:latest
-    container_name: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:? [Mysql] need root password}
-      - MYSQL_DATABASE=${MYSQL_DATABASE:? [Mysql] need a database name}
-      - MYSQL_USER=${MYSQL_USER:? [Mysql] need a user name}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD:? [Mysql] need a user password}
-    volumes:
-      - .${DATA_PATH:? need data path}/container/mysql:/var/lib/mysql
-    ports:
-      - 3306:3306
-    restart: unless-stopped
-
-  adminer:
-    container_name: adminer
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
-
-# networks:
-#   plex-network:
-#     name: plex-network

@@ -25,8 +25,8 @@ services:
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
       - ${CONTAINER_PATH:? need container path}/sonarr/data:/config
-      - ${DATA_PATH:? need data path}/tvseries:/tv #optional
-      - ${DATA_PATH:? need data path}/downloads:/downloads #optional
+      - ${DATA_PATH:? need data path}/tvseries:/tv
+      - ${DATA_PATH:? need data path}/downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -43,8 +43,8 @@ services:
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
       - ${CONTAINER_PATH:? need container path}/radarr/data:/config
-      - ${DATA_PATH:? need data path}/movies:/movies #optional
-      - ${DATA_PATH:? need data path}/downloads:/downloads #optional
+      - ${DATA_PATH:? need data path}/movies:/movies
+      - ${DATA_PATH:? need data path}/downloads:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -61,8 +61,8 @@ services:
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
       - ${CONTAINER_PATH:? need container path}/bazarr/config:/config
-      - ${DATA_PATH:? need data path}/movies:/movies #optional
-      - ${DATA_PATH:? need data path}/tvseries:/tv #optional
+      - ${DATA_PATH:? need data path}/movies:/movies
+      - ${DATA_PATH:? need data path}/tvseries:/tv
     ports:
       - 6767:6767
     restart: unless-stopped
@@ -109,11 +109,11 @@ services:
       - ${CONTAINER_PATH:? need container path}/transmission/config/:/config
       - ${DATA_PATH:? need data path}/downloads/:/data
     environment:
-      - OPENVPN_PROVIDER=${OPENVPN_PROVIDER:? [Deluge] need a provider}
-      - OPENVPN_CONFIG=${OPENVPN_CONFIG:? [Deluge] need a config file}
-      - OPENVPN_USERNAME=${OPENVPN_USERNAME:? [Deluge] need a username}
-      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:? [Deluge] need a password}
-      - LOCAL_NETWORK=${OPENVPN_LOCAL_NETWORK:? [Deluge] need a local network}
+      - OPENVPN_PROVIDER=${OPENVPN_PROVIDER:? [Transmission] need a provider}
+      - OPENVPN_CONFIG=${OPENVPN_CONFIG:? [Transmission] need a config file}
+      - OPENVPN_USERNAME=${OPENVPN_USERNAME:? [Transmission] need a username}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:? [Transmission] need a password}
+      - LOCAL_NETWORK=${OPENVPN_LOCAL_NETWORK:? [Transmission] need a local network}
     logging:
       driver: json-file
       options:

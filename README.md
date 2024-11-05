@@ -6,12 +6,13 @@ Docker container for Plex Media Server.
 
 ## Service
 
-- [Plex](http://localhost:32400/web)
-- [Radarr](http://localhost:7878)
-- [Sonarr](http://localhost:8989)
-- [Prowlarr](http://localhost:9696)
-- [Transmission with openvpn](http://localhost:9091)
-- [Overseerr](http://localhost:5055)
+- [Plex](http://localhost:32400/web) - for media streaming
+- [Radarr](http://localhost:7878) - for movies downloads
+- [Sonarr](http://localhost:8989) - for tv shows downloads
+- [Bazarr](http://localhost:6767) - for subtitles
+- [Prowlarr](http://localhost:9696) - for indexers management
+- [Transmission with openvpn](http://localhost:9091) - for torrents downloads
+- [Overseerr](http://localhost:5055) - for requests
 
 ## Steps
 

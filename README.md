@@ -13,7 +13,7 @@ Docker container for Plex Media Server.
 - [Transmission with openvpn](http://localhost:9091)
 - [Overseerr](http://localhost:5055)
 
-## Configuration
+## Steps
 
 ### Environment Variables
 
@@ -32,7 +32,52 @@ OPENVPN_PASSWORD=password
 OPENVPN_LOCAL_NETWORK=192.168.1.0/24
 ```
 
-## Usage
+### Dns
+
+Add dns `1.1.1.1` to `/etc/systemd/resolved.conf` or `/etc/resolv.conf` if needed
+
+* /etc/systemd/resolved.conf (if systemd-resolved is enabled)
+
+```bash
+DNS=1.1.1.1
+```
+
+* /etc/resolv.conf (not persistent)
+
+```bash
+nameserver 1.1.1.1
+```
+
+### Kernel Modules
+
+Run lsmod to check if the tun module is loaded
+
+```bash
+lsmod | grep tun
+```
+
+If the module is not loaded, you can load it with the following command
+
+```bash
+sudo modprobe tun
+```
+
+Create file `/etc/modules-load.d/tun.conf` with the following content to load the module at boot
+
+```
+tun
+```
+
+### Permissions
+
+Set the permissions for the data folder
+
+```bash
+sudo chown -R 1000:1000 $DATA_PATH
+mkdir $DATA_PATH/downloads/{complete,incomplete}
+```
+
+### Run the service
 
 ```bash
 docker compose up -d

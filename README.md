@@ -1,18 +1,18 @@
-# Plex
+# Plex Media Server
 
 ## Description
 
-Docker container for Plex Media Server.
+Docker container for Plex Media Server. This container is based on the official Plex Media Server container with the addition of OpenVPN, Radarr, Sonarr, Bazarr, Prowlarr, Transmission and Overseerr.
 
 ## Service
 
 - [Plex](http://localhost:32400/web) - for media streaming
-- [Radarr](http://localhost:7878) - for movies downloads
-- [Sonarr](http://localhost:8989) - for tv shows downloads
-- [Bazarr](http://localhost:6767) - for subtitles
+- [Radarr](http://localhost:7878) - for movies filter and search on indexers
+- [Sonarr](http://localhost:8989) - for tv shows filter and search on indexers
+- [Bazarr](http://localhost:6767) - for subtitles search
 - [Prowlarr](http://localhost:9696) - for indexers management
-- [Transmission with openvpn](http://localhost:9091) - for torrents downloads
-- [Overseerr](http://localhost:5055) - for requests
+- [Transmission](http://localhost:9091) - for torrents downloads
+- [Overseerr](http://localhost:5055) - for requests management
 
 ## Steps
 

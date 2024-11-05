@@ -71,7 +71,7 @@ tun
 
 ### Permissions
 
-Set the permissions for the data folder
+Set the permissions for the data folder (replace $DATA_PATH with the path in the .env file)
 
 ```bash
 sudo chown -R 1000:1000 $DATA_PATH

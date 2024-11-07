@@ -69,17 +69,17 @@ Create file `/etc/modules-load.d/tun.conf` with the following content to load th
 tun
 ```
 
+### Run the service
+
+```bash
+docker compose up -d
+```
+
 ### Permissions
 
 Set the permissions for the data folder (replace $DATA_PATH with the path in the .env file)
 
 ```bash
 sudo chown -R 1000:1000 $DATA_PATH
-mkdir $DATA_PATH/downloads/{complete,incomplete}
-```
-
-### Run the service
-
-```bash
-docker compose up -d
+mkdir $DATA_PATH/downloads/{completed,incomplete}
 ```

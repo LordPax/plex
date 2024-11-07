@@ -14,6 +14,8 @@ services:
       - ${DATA_PATH:? need data path}/movies:/movies
     depends_on:
       - transmission-openvpn
+    ports:
+      - 32400:32400
     restart: unless-stopped
 
   sonarr:

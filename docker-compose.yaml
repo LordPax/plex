@@ -1,21 +1,17 @@
 services:
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
-      - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM:? [Plex] need a claim token}
     volumes:
-      - ${CONTAINER_PATH:? need container path}/plex/library:/config
-      - ${DATA_PATH:? need data path}/tvseries:/tv
-      - ${DATA_PATH:? need data path}/movies:/movies
-    depends_on:
-      - transmission-openvpn
+      - ${CONTAINER_PATH? nee container path}/jellyfin/library:/config
+      - ${DATA_PATH? need data path}/tvseries:/data/tvshows
+      - ${DATA_PATH? need data path}/movies:/data/movies
     ports:
-      - 32400:32400
+      - 8096:8096
     restart: unless-stopped
 
   sonarr:
@@ -85,20 +81,18 @@ services:
       - 9696:9696
     restart: unless-stopped
 
-  overseerr:
-    image: lscr.io/linuxserver/overseerr:latest
-    container_name: overseerr
+  ombi:
+    image: lscr.io/linuxserver/ombi:latest
+    container_name: ombi
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=${TIMEZONE:-Europe/Paris}
     volumes:
-      - ${CONTAINER_PATH:? need container path}/overseerr/config:/config
+      - ${CONTAINER_PATH? need container path}/ombi/config:/config
     ports:
-      - 5055:5055
+      - 3579:3579
     restart: unless-stopped
-    depends_on:
-      - plex
 
   transmission-openvpn:
     image: haugene/transmission-openvpn

@@ -6,13 +6,13 @@ Docker container for Plex Media Server. This container is based on the official 
 
 ## Service
 
-- [Plex](http://localhost:32400/web) - for media streaming
+- [Plex](http://localhost:32400/web) or [Jellyfin](http://localhost:8096/web) - for media streaming
 - [Radarr](http://localhost:7878) - for movies filter and search on indexers
 - [Sonarr](http://localhost:8989) - for tv shows filter and search on indexers
 - [Bazarr](http://localhost:6767) - for subtitles search
 - [Prowlarr](http://localhost:9696) - for indexers management
 - [Transmission](http://localhost:9091) - for torrents downloads
-- [Overseerr](http://localhost:5055) - for requests management
+- [Overseerr](http://localhost:5055) or [Ombi](http://localhost:3579) - for requests management
 
 ## Steps
 

@@ -24,7 +24,7 @@ rename `.env.example` to `.env` and set the variables
 DATA_PATH=./dist
 CONTAINER_PATH=./dist/container
 TIMEZONE=Europe/Paris
-PLEX_CLAIM=
+DOMAIN=
 
 OPENVPN_PROVIDER=PIA
 OPENVPN_CONFIG=switzerland
@@ -82,4 +82,13 @@ Set the permissions for the data folder (replace $DATA_PATH with the path in the
 ```bash
 sudo chown -R 1000:1000 $DATA_PATH
 mkdir $DATA_PATH/downloads/{completed,incomplete}
+```
+
+### SSL Certificates
+
+Add the SSL certificates to the `${CONTAINER_PATH}/nginx/certs` folder with with same name as the domain (replace ${CONTAINER_PATH} with the path in the .env file)
+
+```
+${CONTAINER_PATH}/nginx/certs/domain.crt
+${CONTAINER_PATH}/nginx/certs/domain.key
 ```

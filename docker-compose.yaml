@@ -1,4 +1,23 @@
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    environment:
+      - DOMAIN=${DOMAIN:? [Nginx] need a domain}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ${CONTAINER_PATH}/nginx/certs:/etc/nginx/certs
+      - ./entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/entrypoint.sh"]
+    command: ["nginx", "-g", "daemon off;"]
+    restart: unless-stopped
+    depends_on:
+      - jellyfin
+      - ombi
+
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
@@ -13,6 +32,8 @@ services:
     ports:
       - 8096:8096
     restart: unless-stopped
+    depends_on:
+      - transmission-openvpn
 
   # plex:
   #   image: lscr.io/linuxserver/plex:latest
@@ -69,23 +90,23 @@ services:
       - prowlarr
       - transmission-openvpn
 
-  bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TIMEZONE:-Europe/Paris}
-    volumes:
-      - ${CONTAINER_PATH:? need container path}/bazarr/config:/config
-      - ${DATA_PATH:? need data path}/movies:/movies
-      - ${DATA_PATH:? need data path}/tvseries:/tv
-    ports:
-      - 6767:6767
-    restart: unless-stopped
-    depends_on:
-      - radarr
-      - sonarr
+  # bazarr:
+  #   image: lscr.io/linuxserver/bazarr:latest
+  #   container_name: bazarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TIMEZONE:-Europe/Paris}
+  #   volumes:
+  #     - ${CONTAINER_PATH:? need container path}/bazarr/config:/config
+  #     - ${DATA_PATH:? need data path}/movies:/movies
+  #     - ${DATA_PATH:? need data path}/tvseries:/tv
+  #   ports:
+  #     - 6767:6767
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - radarr
+  #     - sonarr
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -112,6 +133,8 @@ services:
     ports:
       - 3579:3579
     restart: unless-stopped
+    depends_on:
+      - jellyfin
 
   # overseerr:
   #   image: lscr.io/linuxserver/overseerr:latest

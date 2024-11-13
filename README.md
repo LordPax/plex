@@ -86,9 +86,9 @@ mkdir $DATA_PATH/downloads/{completed,incomplete}
 
 ### SSL Certificates
 
-Add the SSL certificates to the `${CONTAINER_PATH}/nginx/certs` folder with with same name as the domain (replace ${CONTAINER_PATH} with the path in the .env file)
+Add the SSL certificates to the `${CONTAINER_PATH}/nginx/certs` folder with with same name as your domain (replace ${CONTAINER_PATH} with the path in the .env file)
 
 ```
-${CONTAINER_PATH}/nginx/certs/domain.crt
-${CONTAINER_PATH}/nginx/certs/domain.key
+${CONTAINER_PATH}/nginx/certs/domain.com.crt
+${CONTAINER_PATH}/nginx/certs/domain.com.key
 ```

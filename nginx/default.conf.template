@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name jellyfin.${DOMAIN} ombi.${DOMAIN};
+    server_name jellyfin.${DOMAIN} ombi.${DOMAIN} radarr.${DOMAIN} sonarr.${DOMAIN} prowlarr.${DOMAIN} transmission.${DOMAIN};
     return 301 https://$host$request_uri;
 }
 
@@ -30,6 +30,74 @@ server {
 
     location / {
         proxy_pass http://ombi:3579;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name radarr.${DOMAIN};
+
+    ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
+    ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
+
+    location / {
+        proxy_pass http://radarr:7878;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name sonarr.${DOMAIN};
+
+    ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
+    ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
+
+    location / {
+        proxy_pass http://sonarr:8989;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name prowlarr.${DOMAIN};
+
+    ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
+    ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
+
+    location / {
+        proxy_pass http://prowlarr:9696;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name transmission.${DOMAIN};
+
+    ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
+    ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
+
+    location / {
+        proxy_pass http://transmission-openvpn:9091;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection keep-alive;

@@ -167,6 +167,9 @@ services:
       - OPENVPN_USERNAME=${OPENVPN_USERNAME:? [Transmission] need a username}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:? [Transmission] need a password}
       - LOCAL_NETWORK=${OPENVPN_LOCAL_NETWORK:? [Transmission] need a local network}
+      - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_USERNAME:? [Transmission] need a user}
+      - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_PASSWORD:? [Transmission] need a password}
+      - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
     logging:
       driver: json-file
       options:

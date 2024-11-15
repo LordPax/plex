@@ -17,6 +17,10 @@ services:
     depends_on:
       - jellyfin
       - ombi
+      - prowlarr
+      - radarr
+      - sonarr
+      - transmission-openvpn
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
@@ -34,25 +38,6 @@ services:
     restart: unless-stopped
     depends_on:
       - transmission-openvpn
-
-  # plex:
-  #   image: lscr.io/linuxserver/plex:latest
-  #   container_name: plex
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=${TIMEZONE:-Europe/Paris}
-  #     - VERSION=docker
-  #     - PLEX_CLAIM=${PLEX_CLAIM:? [Plex] need a claim token}
-  #   volumes:
-  #     - ${CONTAINER_PATH:? need container path}/plex/library:/config
-  #     - ${DATA_PATH:? need data path}/tvseries:/tv
-  #     - ${DATA_PATH:? need data path}/movies:/movies
-  #   depends_on:
-  #     - transmission-openvpn
-  #   ports:
-  #     - 32400:32400
-  #   restart: unless-stopped
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -90,24 +75,6 @@ services:
       - prowlarr
       - transmission-openvpn
 
-  # bazarr:
-  #   image: lscr.io/linuxserver/bazarr:latest
-  #   container_name: bazarr
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=${TIMEZONE:-Europe/Paris}
-  #   volumes:
-  #     - ${CONTAINER_PATH:? need container path}/bazarr/config:/config
-  #     - ${DATA_PATH:? need data path}/movies:/movies
-  #     - ${DATA_PATH:? need data path}/tvseries:/tv
-  #   ports:
-  #     - 6767:6767
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - radarr
-  #     - sonarr
-
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -136,21 +103,6 @@ services:
     depends_on:
       - jellyfin
 
-  # overseerr:
-  #   image: lscr.io/linuxserver/overseerr:latest
-  #   container_name: overseerr
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=${TIMEZONE:-Europe/Paris}
-  #   volumes:
-  #     - ${CONTAINER_PATH:? need container path}/overseerr/config:/config
-  #   ports:
-  #     - 5055:5055
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - plex
-
   transmission-openvpn:
     image: haugene/transmission-openvpn
     container_name: transmission-openvpn
@@ -164,11 +116,11 @@ services:
     environment:
       - OPENVPN_PROVIDER=${OPENVPN_PROVIDER:? [Transmission] need a provider}
       - OPENVPN_CONFIG=${OPENVPN_CONFIG:? [Transmission] need a config file}
-      - OPENVPN_USERNAME=${OPENVPN_USERNAME:? [Transmission] need a username}
-      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:? [Transmission] need a password}
+      - OPENVPN_USERNAME=${OPENVPN_USERNAME:? [Transmission] need openvpn username}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:? [Transmission] need openvpn password}
       - LOCAL_NETWORK=${OPENVPN_LOCAL_NETWORK:? [Transmission] need a local network}
-      - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_USERNAME:? [Transmission] need a user}
-      - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_PASSWORD:? [Transmission] need a password}
+      - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_USERNAME:? [Transmission] need ui username}
+      - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_PASSWORD:? [Transmission] need ui password}
       - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
     logging:
       driver: json-file

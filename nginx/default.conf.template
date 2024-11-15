@@ -1,11 +1,13 @@
 server {
     listen 80;
+    listen [::]:80;
     server_name jellyfin.${DOMAIN} ombi.${DOMAIN} radarr.${DOMAIN} sonarr.${DOMAIN} prowlarr.${DOMAIN} transmission.${DOMAIN};
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
     server_name jellyfin.${DOMAIN};
 
     ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
@@ -23,6 +25,7 @@ server {
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
     server_name ombi.${DOMAIN};
 
     ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
@@ -40,6 +43,7 @@ server {
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
     server_name radarr.${DOMAIN};
 
     ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
@@ -57,6 +61,7 @@ server {
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
     server_name sonarr.${DOMAIN};
 
     ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
@@ -74,6 +79,7 @@ server {
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
     server_name prowlarr.${DOMAIN};
 
     ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;
@@ -91,6 +97,7 @@ server {
 
 server {
     listen 443 ssl;
+    listen [::]:443 ssl;
     server_name transmission.${DOMAIN};
 
     ssl_certificate /etc/nginx/certs/${DOMAIN}.crt;

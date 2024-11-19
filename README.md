@@ -1,18 +1,18 @@
-# Plex Media Server
+# Media Server
 
 ## Description
 
-Docker container for Plex Media Server. This container is based on the official Plex Media Server container with the addition of OpenVPN, Radarr, Sonarr, Bazarr, Prowlarr, Transmission and Overseerr.
+Docker container for media management and automation. This repo includes Radarr, Sonarr, Bazarr, Prowlarr, Transmission, Jellyfin and Ombi for a complete media downloading, organization and streaming solution.
 
 ## Service
 
-- [Plex](http://localhost:32400/web) or [Jellyfin](http://localhost:8096/web) - for media streaming
+- [Jellyfin](http://localhost:8096/web) - for media streaming
 - [Radarr](http://localhost:7878) - for movies filter and search on indexers
 - [Sonarr](http://localhost:8989) - for tv shows filter and search on indexers
 - [Bazarr](http://localhost:6767) - for subtitles search
 - [Prowlarr](http://localhost:9696) - for indexers management
 - [Transmission](http://localhost:9091) - for torrents downloads
-- [Overseerr](http://localhost:5055) or [Ombi](http://localhost:3579) - for requests management
+- [Ombi](http://localhost:3579) - for requests management
 
 ## Steps
 
@@ -94,4 +94,10 @@ Add the SSL certificates to the `${CONTAINER_PATH}/nginx/certs` folder with with
 ```
 ${CONTAINER_PATH}/nginx/certs/domain.com.crt
 ${CONTAINER_PATH}/nginx/certs/domain.com.key
+```
+
+### Restart the service
+
+```bash
+docker compose restart
 ```

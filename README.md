@@ -9,7 +9,8 @@ Docker container for media management and automation. This repo includes Radarr,
 - [Jellyfin](http://localhost:8096/web) - for media streaming
 - [Radarr](http://localhost:7878) - for movies filter and search on indexers
 - [Sonarr](http://localhost:8989) - for tv shows filter and search on indexers
-- [Bazarr](http://localhost:6767) - for subtitles search
+- [Lidarr](http://localhost:8686) - for music filter and search on indexers
+- [Readarr](http://localhost:8787) - for books filter and search on indexers
 - [Prowlarr](http://localhost:9696) - for indexers management
 - [Transmission](http://localhost:9091) - for torrents downloads
 - [Ombi](http://localhost:3579) - for requests management

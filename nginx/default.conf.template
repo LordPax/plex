@@ -140,7 +140,7 @@ server {
     ssl_certificate_key /etc/nginx/certs/${DOMAIN}.key;
 
     location / {
-        proxy_pass http://readarr:8686;
+        proxy_pass http://readarr:8787;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection keep-alive;

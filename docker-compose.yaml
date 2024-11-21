@@ -34,6 +34,7 @@ services:
       - ${CONTAINER_PATH? nee container path}/jellyfin/library:/config
       - ${DATA_PATH? need data path}/tvseries:/data/tvshows
       - ${DATA_PATH? need data path}/movies:/data/movies
+      - ${DATA_PATH? need data path}/music:/data/music
     ports:
       - 8096:8096
     restart: unless-stopped

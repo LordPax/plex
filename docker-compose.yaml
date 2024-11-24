@@ -166,3 +166,10 @@ services:
     ports:
       - 9091:9091
     restart: unless-stopped
+
+  scan2epub:
+    image: lordpax/scan2epub:latest
+    container_name: scan2epub
+    volumes:
+      - ${CONTAINER_PATH? need container path}/config:/root/.config/scan2epub
+      - ${DATA_PATH? need data path}/books:/books

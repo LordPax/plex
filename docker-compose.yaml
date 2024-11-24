@@ -171,5 +171,5 @@ services:
     image: lordpax/scan2epub:latest
     container_name: scan2epub
     volumes:
-      - ${CONTAINER_PATH? need container path}/config:/root/.config/scan2epub
+      - ${CONTAINER_PATH? need container path}/scan2epub/config:/root/.config/scan2epub
       - ${DATA_PATH? need data path}/books:/books

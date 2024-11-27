@@ -169,6 +169,7 @@ services:
 
   scan2epub:
     image: lordpax/scan2epub:latest
+    platform: linux/arm64
     container_name: scan2epub
     volumes:
       - ${CONTAINER_PATH? need container path}/scan2epub/config:/root/.config/scan2epub
